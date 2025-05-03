@@ -162,3 +162,30 @@ Test your login by typing:
 
 - `npx partykit login`
 - and then: `npx partykit whoami` # if this hangs, close and re-open the Shell
+
+### Customizing username and avatar with the script tag
+
+If you want to set a custom username or avatar for each user when using the script tag, you have two options:
+
+#### 1. Use a global variable before the script tag
+
+```html
+<script>
+  window.CURSOR_PARTY_USER = {
+    name: "Alice",
+    avatar: "https://example.com/alice.png"
+  };
+</script>
+<script src="https://cursor-party.YOUR-USERNAME-HERE.partykit.dev/cursors.js"></script>
+```
+
+#### 2. Use query parameters in the script tag URL
+
+```html
+<script src="https://cursor-party.YOUR-USERNAME-HERE.partykit.dev/cursors.js?name=Alice&avatar=https://example.com/alice.png"></script>
+```
+
+- The `name` and `avatar` fields are optional. If not provided, random/default values will be used.
+- The `avatar` should be a URL to an image (e.g., from your user system).
+
+You can use either or both methods. The script will use the global variable if present, then query parameters, then fallback to defaults.

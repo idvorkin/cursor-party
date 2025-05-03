@@ -55,6 +55,9 @@ export default class PresenceServer implements Party.Server {
       (lobby.env.WEBSITES || "[]") as string
     ) as string[];
 
+    // Log the allowed patterns for debugging
+    console.log("[PartyKit] Allowed WEBSITES patterns:", WEBSITES);
+
     if (["localhost", "127.0.0.1", "0.0.0.0"].includes(homeURL.hostname)) {
       return req;
     }
@@ -81,7 +84,7 @@ Learn more: https://developer.mozilla.org/en-US/docs/Web/API/URL_Pattern_API
 
     const allowed = patterns.some((pattern) => pattern.test(matchWith));
     if (!allowed) {
-      const errMessage = `The URL ${matchWith} does not match any allowed pattern from ${lobby.env.WEBSITES}`;
+      const errMessage = `The URL ${matchWith} does not match any allowed pattern. Allowed patterns: ${JSON.stringify(WEBSITES)}`;
       // @ts-expect-error we're using dom types here. apparently
       const pair = new WebSocketPair();
       pair[1].accept();
@@ -107,6 +110,7 @@ Learn more: https://developer.mozilla.org/en-US/docs/Web/API/URL_Pattern_API
     const presence = {
       name: params.get("name") ?? undefined,
       color: params.get("color") ?? undefined,
+      avatar: params.get("avatar") ?? undefined,
     } as Presence;
 
     // Stash the metadata and the presence on the websocket
