@@ -172,3 +172,6 @@ dist
 public/cursors.js
 public/cursors.js.map
 public/meta.js
+# SpecStory explanation file
+.specstory/.what-is-this.md
+.specstory/
