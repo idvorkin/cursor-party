@@ -23,6 +23,7 @@ export default function Cursor(props: {
     pointer: user.presence.cursor.pointer,
     country: user.metadata.country,
     message: user.presence.message ?? null,
+    avatar: user.presence.avatar ?? null,
   };
 
   const offset = 10;
@@ -53,12 +54,31 @@ export default function Cursor(props: {
         ...styles,
       }}
     >
+      {cursor.avatar ? (
+        <img
+          src={cursor.avatar}
+          alt={user.presence.name || "avatar"}
+          style={{
+            width: 32,
+            height: 32,
+            borderRadius: "50%",
+            position: "absolute",
+            top: -36,
+            left: 8,
+            border: "2px solid white",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+            background: "#fff",
+            objectFit: "cover",
+            zIndex: 1002,
+          }}
+        />
+      ) : null}
       {cursor.pointer === "mouse" ? (
         <MousePointer fill={props.fill} />
       ) : (
         <TouchPointer fill={props.fill} />
       )}
-      {cursor.message === null && cursor.country !== null && (
+      {!cursor.avatar && cursor.message === null && cursor.country !== null && (
         <div
           style={{
             position: "absolute",

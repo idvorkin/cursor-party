@@ -10,13 +10,19 @@ const pageId = window?.location.href
   : "default";
 
 function App() {
+  // Mock user info (replace with Firebase Auth user in real usage)
+  const user = {
+    displayName: "Anonymous User",
+    photoURL: "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
+  };
   return (
     <PresenceProvider
       host={PARTYKIT_HOST}
       room={pageId}
       presence={{
-        name: "Anonymous User",
+        name: user.displayName,
         color: "#0000f0",
+        avatar: user.photoURL,
       }}
     >
       <Cursors />

@@ -14,6 +14,7 @@ export type Presence = {
   cursor?: Cursor | null;
   message?: string | null;
   spotlightColor?: string;
+  avatar?: string;
 };
 
 // set on the server, read-only for the duration of the session
@@ -60,6 +61,7 @@ export const presenceSchema = z.object({
   cursor: cursorSchema.optional().nullable(),
   message: z.string().optional().nullable(),
   spotlightColor: z.string().optional(),
+  avatar: z.string().optional(),
 });
 
 export const metadataSchema = z.object({

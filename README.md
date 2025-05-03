@@ -114,12 +114,26 @@ Run `git pull` periodically in your working directory for new features and fixtu
 
 ## Customizing the display of the cursors
 
-You can modify the code in this repo to change the display of the cursors. You'll need to be familiar with JavaScript and CSS.
+You can now display user avatars as cursor icons! To do this, pass an `avatar` URL (such as from Firebase Auth's `photoURL`) to the `PresenceProvider`:
 
-- Instead of cloning this repo, fork it to your own GitHub account
-- `src/presence/Cursors.tsx`: To make the cursors fit in the browser windows instead of over the full document, change the hook to read: `useCursorTracking("document")`
-- `src/presence/other-cursors.tsx`: Change the cursor container here, for example to change the z-index
-- `src/presence/cursor.tsx`: Change the appearance of a cursor here, for example to swap out the pointer for an image of your choosing.
+```js
+<PresenceProvider
+  host={PARTYKIT_HOST}
+  room={pageId}
+  presence={{
+    name: user.displayName || "Anonymous User",
+    color: "#0000f0",
+    avatar: user.photoURL, // <-- Avatar image URL
+  }}
+>
+  <Cursors />
+</PresenceProvider>
+```
+
+If `avatar` is provided, the user's cursor will display their image above the pointer. If not, the default color and pointer will be used.
+
+- The `avatar` field is optional and should be a string URL to an image (e.g., from Firebase Auth).
+- You can further customize the appearance in `src/presence/cursor.tsx`.
 
 ## Detailed instructions
 
